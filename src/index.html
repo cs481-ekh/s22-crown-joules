@@ -68,11 +68,14 @@
                 }
                 //CODE FOR CANVAS ANNIMATION GOES HERE
 
+                
+
+
             } 
         </script>
 
         <script>
-            function addObject() {
+            function addObject(){
                 var table = document.getElementById("objects-table");
                 var tableSize = document.getElementById("objects-table").rows.length;
 
@@ -84,7 +87,14 @@
                 document.getElementById("objects-table").deleteRow(tableSize - 1);
                 var newRow = table.insertRow(tableSize - 2);
                 var newCell1 = newRow.insertCell(0);
-                newCell1.innerHTML = "Test: " + (tableSize - 1);
+                newCell1.innerHTML = createNewObject(); //TODO: NEED TO INSERT OBJECT INSTANCE HERE
+            }
+
+            function createNewObject(){
+                var returnString;
+
+                returnString = 
+
             }
         </script>
 
