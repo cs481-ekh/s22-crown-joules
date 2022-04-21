@@ -356,6 +356,7 @@
                 return;
             }
             
+            //calculates the current radius that a cube is located at
             function calculateRadius(givenX, givenY){
                 var radius;
                 var centerX = getOffset( document.getElementById('circlecenter') ).left;
@@ -485,6 +486,7 @@
                 updateCubeSize();
             }
 
+            //Draws cubes on canvas when draw-cubes button is clicked
             function drawCubes() {
                 $( ".cube" ).remove();
                 var appendstr = "";
@@ -511,6 +513,7 @@
                     var x = relx + (canvas.width)/2;
                     var y = rely + (canvas.height)/2;
 
+                    //On draw call, the cube lables and color are populated in the frame data
                     switch (cube["type"]) {
                         case 'kinetic': 
                             cube["label"] = "KE";
@@ -540,6 +543,7 @@
                     
                     $( "#maincircle" ).append( appendstr );
 
+                    //adds context menu listener to each cube
                     document.getElementById("cube" + count).addEventListener("contextmenu", function(e){
                         if(frameData.length > 1){
                             var tableSize = (document.getElementById("frames-table").rows[0].cells.length) - 1;
@@ -558,9 +562,8 @@
                         }
                     });
 
-                    
+                    //updates the accociated object, radians, and radius of the cube in the frame data
                     document.getElementById("cube" + count).addEventListener("mouseout", function(e){
-                        //if(frameData.length > 1){
                             e.preventDefault();
                             var currentFrame = frameData[frame-1];
                             var targ = e.target;
@@ -569,7 +572,6 @@
                             const cubeArray = Array.prototype.slice.call(cubeList);
 
                             cubeArray.every(cube => {
-                                //TODO: UPDATE COORDS AFTER CUBE IS MOVED
                                 var rect = cube.getBoundingClientRect();
                                 var rectLeft = rect.left;
                                 var rectRight = rect.right;
@@ -581,13 +583,13 @@
                                         currentFrame[cubeIndex]["radians"] = newestRadians;
                                         calculateRadius(rectLeft, rectTop);
                                         currentFrame[cubeIndex]["radius"] = newestRadius;
+                                        currentFrame[cubeIndex]["object"] = newestObj;
                                         return;
                                     }
                                 }
                                 cubeIndex++;
                                 return true;
                             });
-                        //}
                     });
                     count++;  
                 });
@@ -699,7 +701,7 @@
                 }
             });
 
-            //if canvis is clicked then menu dissapears
+            //if canvis is clicked then cube context menu dissapears
             window.addEventListener("mousedown", function(){
                 if(menuIsOpen == true){
                     document.getElementById("context-menu").classList.remove("active");
@@ -842,6 +844,7 @@
                 drawFrame(nextFrame);
             }
 
+            //Adds object to object table when add-object button is clicked
             function addObjectButton(){
                 numObjectButtons++;
                 var currentIndex = numObjectButtons - 1;
@@ -866,6 +869,7 @@
 
             }
 
+            //Removes object from object table when remove-object button is clicked
             function removeObjectButton(){
                 if(numObjectButtons == 0){
                     return;
@@ -896,6 +900,7 @@
                 newCell.innerHTML = newCellContent;
             }
 
+            //removes an energy-type spinner and selector from energy menu on a specicified object table cell
             function removeEnergy(i){
                 if(energySpinnerIndexes[i] == 0){
                     return;
@@ -908,6 +913,7 @@
 
             }
 
+            //Adds new object table cell
             function createNewObject(objID){
                 var returnString;
                 var currentIndex = numObjectButtons - 1;
@@ -917,6 +923,7 @@
                 return returnString;
             }
 
+            //Adds new energy menu to new object table cell
             function newEnergyMenu(objID){
                 var returnString;
                 var currentIndex = numObjectButtons - 1;
